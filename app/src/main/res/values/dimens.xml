@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_padding">16dp</dimen>
+    <dimen name="button_horizontal_margin">8dp</dimen>
+    <dimen name="generic_view_vertical_margin">16dp</dimen>
+    <dimen name="generic_text_size">20sp</dimen>
+</resources>

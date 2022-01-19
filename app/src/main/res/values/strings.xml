@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Pizza Party</string>
+    <string name="my_name_label">David Read</string>
+    <string name="number_of_people_label">Number of people?</string>
+    <string name="positive_integer_hint">Enter a positive integer</string>
+    <string name="slices_per_pizza_label">Slices per pizza?</string>
+    <string name="hungry_label">How hungry?</string>
+    <string name="light_label">Light</string>
+    <string name="medium_label">Medium</string>
+    <string name="ravenous_label">Ravenous</string>
+    <string name="pizza_thickness_label">Pizza thickness?</string>
+    <string name="thin_label">Thin</string>
+    <string name="thick_label">Thick</string>
+    <string name="day_rating_label">How is your day going?</string>
+    <string name="day_rating_hint">1st is worst, 10th is best</string>
+    <string name="total_pizzas_empty_field">Total pizzas: ?</string>
+    <string name="total_pizzas_field">Total pizzas: %1$d</string>
+    <string name="dummy_values_label">Dummy Values</string>
+    <string name="reset_label">Reset</string>
+    <string name="calculate_label">Calculate</string>
+</resources>
