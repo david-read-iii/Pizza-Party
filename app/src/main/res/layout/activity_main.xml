@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".controller.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,19 +16,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/my_name_label"
-            android:textSize="@dimen/generic_text_size" />
+            android:textSize="@dimen/label_text_size" />
 
-        <!-- "Number of people?" field. -->
+        <!-- "Party size" field. -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/generic_view_vertical_margin"
-            android:labelFor="@id/number_of_people_edit_text"
-            android:text="@string/number_of_people_label"
-            android:textSize="@dimen/generic_text_size" />
+            android:layout_marginTop="@dimen/field_vertical_margin"
+            android:labelFor="@id/party_size_edit_text"
+            android:text="@string/party_size_label"
+            android:textSize="@dimen/label_text_size" />
 
         <EditText
-            android:id="@+id/number_of_people_edit_text"
+            android:id="@+id/party_size_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="5"
@@ -36,14 +36,14 @@
             android:importantForAutofill="no"
             android:inputType="number" />
 
-        <!-- "Slices per pizza?" field. -->
+        <!-- "Slices per pizza" field. -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/generic_view_vertical_margin"
+            android:layout_marginTop="@dimen/field_vertical_margin"
             android:labelFor="@id/slices_per_pizza_edit_text"
             android:text="@string/slices_per_pizza_label"
-            android:textSize="@dimen/generic_text_size" />
+            android:textSize="@dimen/label_text_size" />
 
         <EditText
             android:id="@+id/slices_per_pizza_edit_text"
@@ -54,17 +54,35 @@
             android:importantForAutofill="no"
             android:inputType="number" />
 
-        <!-- "How hungry?" field. -->
+        <!-- "Price per pizza" field. -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/generic_view_vertical_margin"
-            android:labelFor="@id/hungry_radio_group"
-            android:text="@string/hungry_label"
-            android:textSize="@dimen/generic_text_size" />
+            android:layout_marginTop="@dimen/field_vertical_margin"
+            android:labelFor="@id/price_per_pizza_edit_text"
+            android:text="@string/price_per_pizza_label"
+            android:textSize="@dimen/label_text_size" />
+
+        <EditText
+            android:id="@+id/price_per_pizza_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:hint="@string/price_hint"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal" />
+
+        <!-- "Party hunger level" field. -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/field_vertical_margin"
+            android:labelFor="@id/party_hunger_level_radio_group"
+            android:text="@string/party_hunger_level_label"
+            android:textSize="@dimen/label_text_size" />
 
         <RadioGroup
-            android:id="@+id/hungry_radio_group"
+            android:id="@+id/party_hunger_level_radio_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -75,21 +93,21 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:checked="true"
-                android:text="@string/light_label" />
+                android:text="@string/light_radio_label" />
 
             <RadioButton
                 android:id="@+id/medium_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/medium_label" />
+                android:text="@string/medium_radio_label" />
 
             <RadioButton
                 android:id="@+id/ravenous_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/ravenous_label" />
+                android:text="@string/ravenous_radio_label" />
 
         </RadioGroup>
 
@@ -97,10 +115,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/generic_view_vertical_margin"
+            android:layout_marginTop="@dimen/field_vertical_margin"
             android:labelFor="@id/pizza_thickness_radio_group"
             android:text="@string/pizza_thickness_label"
-            android:textSize="@dimen/generic_text_size" />
+            android:textSize="@dimen/label_text_size" />
 
         <RadioGroup
             android:id="@+id/pizza_thickness_radio_group"
@@ -114,48 +132,39 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:checked="true"
-                android:text="@string/thin_label" />
+                android:text="@string/thin_radio_label" />
 
             <RadioButton
                 android:id="@+id/thick_radio_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/thick_label" />
+                android:text="@string/thick_radio_label" />
 
         </RadioGroup>
-
-        <!-- "How is your day going?" field. -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/generic_view_vertical_margin"
-            android:labelFor="@id/day_rating_edit_text"
-            android:text="@string/day_rating_label"
-            android:textSize="@dimen/generic_text_size" />
-
-        <EditText
-            android:id="@+id/day_rating_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="5"
-            android:hint="@string/day_rating_hint"
-            android:importantForAutofill="no"
-            android:inputType="number" />
 
         <!-- "Total pizzas" field. -->
         <TextView
             android:id="@+id/total_pizzas_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/generic_view_vertical_margin"
+            android:layout_marginTop="@dimen/field_vertical_margin"
             android:text="@string/total_pizzas_empty_field"
-            android:textSize="@dimen/generic_text_size" />
+            android:textSize="@dimen/label_text_size" />
+
+        <!-- "Total price" field. -->
+        <TextView
+            android:id="@+id/total_price_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/field_vertical_margin"
+            android:text="@string/total_price_empty_field"
+            android:textSize="@dimen/label_text_size" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/generic_view_vertical_margin"
+            android:layout_marginTop="@dimen/field_vertical_margin"
             android:orientation="horizontal">
 
             <!-- "Dummy Values" button. -->
@@ -165,7 +174,7 @@
                 android:layout_marginEnd="@dimen/button_horizontal_margin"
                 android:layout_weight="1"
                 android:onClick="dummyValuesClick"
-                android:text="@string/dummy_values_label" />
+                android:text="@string/dummy_values_button_label" />
 
             <!-- "Reset" button. -->
             <Button
@@ -174,7 +183,7 @@
                 android:layout_marginStart="@dimen/button_horizontal_margin"
                 android:layout_weight="1"
                 android:onClick="resetClick"
-                android:text="@string/reset_label" />
+                android:text="@string/reset_button_label" />
 
         </LinearLayout>
 
@@ -184,7 +193,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="calculateClick"
-            android:text="@string/calculate_label" />
+            android:text="@string/calculate_button_label" />
 
     </LinearLayout>
 
