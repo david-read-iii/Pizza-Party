@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.davidread.pizzaparty.R;
 import com.davidread.pizzaparty.model.PizzaCalculator;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.NumberFormat;
 
@@ -55,6 +57,21 @@ public class MainActivity extends AppCompatActivity {
     private TextView totalPriceTextView;
 
     /**
+     * {@link Button} to insert dummy values into the form.
+     */
+    private Button dummyValuesButton;
+
+    /**
+     * {@link Button} to reset the form.
+     */
+    private Button resetButton;
+
+    /**
+     * {@link Button} to calculate the total number of pizzas and total price.
+     */
+    private Button calculateButton;
+
+    /**
      * Callback method invoked when the activity is initially created. It simply inflates the layout
      * and initializes all {@link View} objects used in the form.
      */
@@ -71,6 +88,31 @@ public class MainActivity extends AppCompatActivity {
         pizzaThicknessRadioGroup = findViewById(R.id.pizza_thickness_radio_group);
         totalPizzasTextView = findViewById(R.id.total_pizzas_text_view);
         totalPriceTextView = findViewById(R.id.total_price_text_view);
+        dummyValuesButton = findViewById(R.id.dummy_values_button);
+        resetButton = findViewById(R.id.reset_button);
+        calculateButton = findViewById(R.id.calculate_button);
+
+        // Attach OnClickListeners to each button.
+        dummyValuesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dummyValuesClick(v);
+            }
+        });
+
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetClick(v);
+            }
+        });
+
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculateClick(v);
+            }
+        });
     }
 
     /**
@@ -87,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
         pizzaThicknessRadioGroup.check(R.id.thin_radio_button);
         totalPizzasTextView.setText(getString(R.string.total_pizzas_empty_field));
         totalPriceTextView.setText(getString(R.string.total_price_empty_field));
+        Snackbar.make(view, R.string.dummy_values_inserted_message, Snackbar.LENGTH_SHORT).show();
     }
 
     /**
@@ -103,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         pizzaThicknessRadioGroup.check(R.id.thin_radio_button);
         totalPizzasTextView.setText(getString(R.string.total_pizzas_empty_field));
         totalPriceTextView.setText(getString(R.string.total_price_empty_field));
+        Snackbar.make(view, R.string.form_reset_message, Snackbar.LENGTH_SHORT).show();
     }
 
     /**
@@ -120,10 +164,12 @@ public class MainActivity extends AppCompatActivity {
             partySizeEditText.setError(null);
         } catch (NumberFormatException e) {
             partySizeEditText.setError(getString(R.string.positive_integer_hint));
+            Snackbar.make(view, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
             return;
         }
         if (partySize < 0) {
             partySizeEditText.setError(getString(R.string.positive_integer_hint));
+            Snackbar.make(view, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
             return;
         }
 
@@ -135,10 +181,12 @@ public class MainActivity extends AppCompatActivity {
             slicesPerPizzaEditText.setError(null);
         } catch (NumberFormatException e) {
             slicesPerPizzaEditText.setError(getString(R.string.positive_integer_hint));
+            Snackbar.make(view, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
             return;
         }
         if (slicesPerPizza < 0) {
             slicesPerPizzaEditText.setError(getString(R.string.positive_integer_hint));
+            Snackbar.make(view, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
             return;
         }
 
@@ -150,10 +198,12 @@ public class MainActivity extends AppCompatActivity {
             pricePerPizzaEditText.setError(null);
         } catch (NumberFormatException e) {
             pricePerPizzaEditText.setError(getString(R.string.price_hint));
+            Snackbar.make(view, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
             return;
         }
         if (pricePerPizza < 0) {
             pricePerPizzaEditText.setError(getString(R.string.price_hint));
+            Snackbar.make(view, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
             return;
         }
 

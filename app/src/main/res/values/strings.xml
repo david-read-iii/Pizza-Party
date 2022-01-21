@@ -33,4 +33,9 @@
     <string name="reset_button_label">Reset</string>
     <string name="calculate_button_label">Calculate</string>
 
+    <!-- Snackbar messages. -->
+    <string name="dummy_values_inserted_message">Dummy values inserted!</string>
+    <string name="form_reset_message">Form reset!</string>
+    <string name="form_error_message">Invalid value(s) in form!</string>
+
 </resources>

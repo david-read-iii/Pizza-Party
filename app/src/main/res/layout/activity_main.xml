@@ -169,30 +169,29 @@
 
             <!-- "Dummy Values" button. -->
             <Button
+                android:id="@+id/dummy_values_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/button_horizontal_margin"
                 android:layout_weight="1"
-                android:onClick="dummyValuesClick"
                 android:text="@string/dummy_values_button_label" />
 
             <!-- "Reset" button. -->
             <Button
+                android:id="@+id/reset_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/button_horizontal_margin"
                 android:layout_weight="1"
-                android:onClick="resetClick"
                 android:text="@string/reset_button_label" />
 
         </LinearLayout>
 
         <!-- "Calculate" button. -->
         <Button
-            android:id="@+id/calc_button"
+            android:id="@+id/calculate_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="calculateClick"
             android:text="@string/calculate_button_label" />
 
     </LinearLayout>
