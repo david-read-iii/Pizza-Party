@@ -1,5 +1,6 @@
 package com.davidread.pizzaparty.controller;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -20,6 +21,17 @@ import java.text.NumberFormat;
  * number of pizzas and total price of the pizzas.
  */
 public class MainActivity extends AppCompatActivity {
+
+    /**
+     * {@link String} identifiers for objects put into instance state {@link Bundle} objects.
+     */
+    private static final String PARTY_SIZE_EXTRA = "party_size";
+    private static final String SLICES_PER_PIZZA_EXTRA = "slices_per_pizza";
+    private static final String PRICE_PER_PIZZA_EXTRA = "price_per_pizza";
+    private static final String PARTY_HUNGER_LEVEL_EXTRA = "party_hunger_level";
+    private static final String PIZZA_THICKNESS_EXTRA = "pizza_thickness";
+    private static final String TOTAL_PIZZAS_EXTRA = "total_pizzas";
+    private static final String TOTAL_PRICE_EXTRA = "total_price";
 
     /**
      * {@link EditText} to get the party size from the user.
@@ -113,6 +125,42 @@ public class MainActivity extends AppCompatActivity {
                 calculateClick(v);
             }
         });
+    }
+
+    /**
+     * Callback method invoked before a configuration change. It saves the state of the form.
+     *
+     * @param outState {@link Bundle} holding the state of the form.
+     */
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(PARTY_SIZE_EXTRA, partySizeEditText.getText().toString());
+        outState.putString(SLICES_PER_PIZZA_EXTRA, slicesPerPizzaEditText.getText().toString());
+        outState.putString(PRICE_PER_PIZZA_EXTRA, pricePerPizzaEditText.getText().toString());
+        outState.putInt(PARTY_HUNGER_LEVEL_EXTRA, partyHungerLevelRadioGroup.getCheckedRadioButtonId());
+        outState.putInt(PIZZA_THICKNESS_EXTRA, pizzaThicknessRadioGroup.getCheckedRadioButtonId());
+        outState.putString(TOTAL_PIZZAS_EXTRA, totalPizzasTextView.getText().toString());
+        outState.putString(TOTAL_PRICE_EXTRA, totalPriceTextView.getText().toString());
+    }
+
+    /**
+     * Callback method invoked after a configuration change occurs. It restores the state of the
+     * form.
+     *
+     * @param savedInstanceState {@link Bundle} holding the state of the form before the
+     *                           configuration change.
+     */
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        partySizeEditText.setText(savedInstanceState.getString(PARTY_SIZE_EXTRA));
+        slicesPerPizzaEditText.setText(savedInstanceState.getString(SLICES_PER_PIZZA_EXTRA));
+        pricePerPizzaEditText.setText(savedInstanceState.getString(PRICE_PER_PIZZA_EXTRA));
+        partyHungerLevelRadioGroup.check(savedInstanceState.getInt(PARTY_HUNGER_LEVEL_EXTRA));
+        pizzaThicknessRadioGroup.check(savedInstanceState.getInt(PIZZA_THICKNESS_EXTRA));
+        totalPizzasTextView.setText(savedInstanceState.getString(TOTAL_PIZZAS_EXTRA));
+        totalPriceTextView.setText(savedInstanceState.getString(TOTAL_PRICE_EXTRA));
     }
 
     /**
