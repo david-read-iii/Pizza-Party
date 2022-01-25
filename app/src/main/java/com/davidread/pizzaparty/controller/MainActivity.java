@@ -4,10 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.davidread.pizzaparty.R;
@@ -49,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText pricePerPizzaEditText;
 
     /**
-     * {@link RadioGroup} to get the party hunger level from the user.
+     * {@link Spinner} to get the party hunger level from the user.
      */
-    private RadioGroup partyHungerLevelRadioGroup;
+    private Spinner partyHungerLevelSpinner;
 
     /**
      * {@link RadioGroup} to get the pizza thickness from the user.
@@ -96,13 +100,100 @@ public class MainActivity extends AppCompatActivity {
         partySizeEditText = findViewById(R.id.party_size_edit_text);
         slicesPerPizzaEditText = findViewById(R.id.slices_per_pizza_edit_text);
         pricePerPizzaEditText = findViewById(R.id.price_per_pizza_edit_text);
-        partyHungerLevelRadioGroup = findViewById(R.id.party_hunger_level_radio_group);
+        partyHungerLevelSpinner = findViewById(R.id.party_hunger_level_spinner);
         pizzaThicknessRadioGroup = findViewById(R.id.pizza_thickness_radio_group);
         totalPizzasTextView = findViewById(R.id.total_pizzas_text_view);
         totalPriceTextView = findViewById(R.id.total_price_text_view);
         dummyValuesButton = findViewById(R.id.dummy_values_button);
         resetButton = findViewById(R.id.reset_button);
         calculateButton = findViewById(R.id.calculate_button);
+
+        // Add TextWatchers on each EditText.
+        partySizeEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int partySize;
+                try {
+                    partySize = Integer.parseInt(s.toString());
+                    partySizeEditText.setError(null);
+                } catch (NumberFormatException e) {
+                    partySizeEditText.setError(getString(R.string.positive_integer_hint));
+                    Snackbar.make(partySizeEditText, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+                if (partySize < 0) {
+                    partySizeEditText.setError(getString(R.string.positive_integer_hint));
+                    Snackbar.make(partySizeEditText, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        slicesPerPizzaEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int slicesPerPizza;
+                try {
+                    slicesPerPizza = Integer.parseInt(s.toString());
+                    slicesPerPizzaEditText.setError(null);
+                } catch (NumberFormatException e) {
+                    slicesPerPizzaEditText.setError(getString(R.string.positive_integer_hint));
+                    Snackbar.make(slicesPerPizzaEditText, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+                if (slicesPerPizza < 0) {
+                    slicesPerPizzaEditText.setError(getString(R.string.positive_integer_hint));
+                    Snackbar.make(slicesPerPizzaEditText, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        pricePerPizzaEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                double pricePerPizza;
+                try {
+                    pricePerPizza = Double.parseDouble(s.toString());
+                    pricePerPizzaEditText.setError(null);
+                } catch (NumberFormatException e) {
+                    pricePerPizzaEditText.setError(getString(R.string.price_hint));
+                    Snackbar.make(pricePerPizzaEditText, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+                if (pricePerPizza < 0) {
+                    pricePerPizzaEditText.setError(getString(R.string.price_hint));
+                    Snackbar.make(pricePerPizzaEditText, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        // Set adapter of Spinner.
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.party_hunger_level_array, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        partyHungerLevelSpinner.setAdapter(spinnerAdapter);
 
         // Attach OnClickListeners to each button.
         dummyValuesButton.setOnClickListener(new View.OnClickListener() {
@@ -138,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
         outState.putString(PARTY_SIZE_EXTRA, partySizeEditText.getText().toString());
         outState.putString(SLICES_PER_PIZZA_EXTRA, slicesPerPizzaEditText.getText().toString());
         outState.putString(PRICE_PER_PIZZA_EXTRA, pricePerPizzaEditText.getText().toString());
-        outState.putInt(PARTY_HUNGER_LEVEL_EXTRA, partyHungerLevelRadioGroup.getCheckedRadioButtonId());
+        outState.putInt(PARTY_HUNGER_LEVEL_EXTRA, partyHungerLevelSpinner.getSelectedItemPosition());
         outState.putInt(PIZZA_THICKNESS_EXTRA, pizzaThicknessRadioGroup.getCheckedRadioButtonId());
         outState.putString(TOTAL_PIZZAS_EXTRA, totalPizzasTextView.getText().toString());
         outState.putString(TOTAL_PRICE_EXTRA, totalPriceTextView.getText().toString());
@@ -157,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
         partySizeEditText.setText(savedInstanceState.getString(PARTY_SIZE_EXTRA));
         slicesPerPizzaEditText.setText(savedInstanceState.getString(SLICES_PER_PIZZA_EXTRA));
         pricePerPizzaEditText.setText(savedInstanceState.getString(PRICE_PER_PIZZA_EXTRA));
-        partyHungerLevelRadioGroup.check(savedInstanceState.getInt(PARTY_HUNGER_LEVEL_EXTRA));
+        partyHungerLevelSpinner.setSelection(savedInstanceState.getInt(PARTY_HUNGER_LEVEL_EXTRA));
         pizzaThicknessRadioGroup.check(savedInstanceState.getInt(PIZZA_THICKNESS_EXTRA));
         totalPizzasTextView.setText(savedInstanceState.getString(TOTAL_PIZZAS_EXTRA));
         totalPriceTextView.setText(savedInstanceState.getString(TOTAL_PRICE_EXTRA));
@@ -173,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
         slicesPerPizzaEditText.setError(null);
         pricePerPizzaEditText.setText("10.99");
         pricePerPizzaEditText.setError(null);
-        partyHungerLevelRadioGroup.check(R.id.light_radio_button);
+        partyHungerLevelSpinner.setSelection(0);
         pizzaThicknessRadioGroup.check(R.id.thin_radio_button);
         totalPizzasTextView.setText(getString(R.string.total_pizzas_empty_field));
         totalPriceTextView.setText(getString(R.string.total_price_empty_field));
@@ -190,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
         slicesPerPizzaEditText.setError(null);
         pricePerPizzaEditText.setText("");
         pricePerPizzaEditText.setError(null);
-        partyHungerLevelRadioGroup.check(R.id.light_radio_button);
+        partyHungerLevelSpinner.setSelection(0);
         pizzaThicknessRadioGroup.check(R.id.thin_radio_button);
         totalPizzasTextView.setText(getString(R.string.total_pizzas_empty_field));
         totalPriceTextView.setText(getString(R.string.total_price_empty_field));
@@ -209,15 +300,10 @@ public class MainActivity extends AppCompatActivity {
         try {
             String partySizeString = partySizeEditText.getText().toString();
             partySize = Integer.parseInt(partySizeString);
-            partySizeEditText.setError(null);
         } catch (NumberFormatException e) {
-            partySizeEditText.setError(getString(R.string.positive_integer_hint));
-            Snackbar.make(view, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
             return;
         }
         if (partySize < 0) {
-            partySizeEditText.setError(getString(R.string.positive_integer_hint));
-            Snackbar.make(view, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
             return;
         }
 
@@ -226,15 +312,10 @@ public class MainActivity extends AppCompatActivity {
         try {
             String slicesPerPizzaString = slicesPerPizzaEditText.getText().toString();
             slicesPerPizza = Integer.parseInt(slicesPerPizzaString);
-            slicesPerPizzaEditText.setError(null);
         } catch (NumberFormatException e) {
-            slicesPerPizzaEditText.setError(getString(R.string.positive_integer_hint));
-            Snackbar.make(view, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
             return;
         }
         if (slicesPerPizza < 0) {
-            slicesPerPizzaEditText.setError(getString(R.string.positive_integer_hint));
-            Snackbar.make(view, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
             return;
         }
 
@@ -243,26 +324,21 @@ public class MainActivity extends AppCompatActivity {
         try {
             String pricePerPizzaString = pricePerPizzaEditText.getText().toString();
             pricePerPizza = Double.parseDouble(pricePerPizzaString);
-            pricePerPizzaEditText.setError(null);
         } catch (NumberFormatException e) {
-            pricePerPizzaEditText.setError(getString(R.string.price_hint));
-            Snackbar.make(view, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
             return;
         }
         if (pricePerPizza < 0) {
-            pricePerPizzaEditText.setError(getString(R.string.price_hint));
-            Snackbar.make(view, R.string.form_error_message, Snackbar.LENGTH_SHORT).show();
             return;
         }
 
         // Get party hunger level from its RadioGroup.
         PizzaCalculator.PartyHungerLevel partyHungerLevel = null;
-        int partyHungerLevelCheckedRadioButtonId = partyHungerLevelRadioGroup.getCheckedRadioButtonId();
-        if (partyHungerLevelCheckedRadioButtonId == R.id.light_radio_button) {
+        int partyHungerLevelSpinnerPosition = partyHungerLevelSpinner.getSelectedItemPosition();
+        if (partyHungerLevelSpinnerPosition == 0) {
             partyHungerLevel = PizzaCalculator.PartyHungerLevel.LIGHT;
-        } else if (partyHungerLevelCheckedRadioButtonId == R.id.medium_radio_button) {
+        } else if (partyHungerLevelSpinnerPosition == 1) {
             partyHungerLevel = PizzaCalculator.PartyHungerLevel.MEDIUM;
-        } else if (partyHungerLevelCheckedRadioButtonId == R.id.ravenous_radio_button) {
+        } else if (partyHungerLevelSpinnerPosition == 2) {
             partyHungerLevel = PizzaCalculator.PartyHungerLevel.RAVENOUS;
         }
 

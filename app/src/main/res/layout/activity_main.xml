@@ -77,39 +77,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/field_vertical_margin"
-            android:labelFor="@id/party_hunger_level_radio_group"
+            android:labelFor="@id/party_hunger_level_spinner"
             android:text="@string/party_hunger_level_label"
             android:textSize="@dimen/label_text_size" />
 
-        <RadioGroup
-            android:id="@+id/party_hunger_level_radio_group"
+        <Spinner
+            android:id="@+id/party_hunger_level_spinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/light_radio_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="true"
-                android:text="@string/light_radio_label" />
-
-            <RadioButton
-                android:id="@+id/medium_radio_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/medium_radio_label" />
-
-            <RadioButton
-                android:id="@+id/ravenous_radio_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/ravenous_radio_label" />
-
-        </RadioGroup>
+            android:layout_height="wrap_content" />
 
         <!-- "Pizza thickness" field. -->
         <TextView

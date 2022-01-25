@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="party_hunger_level_array">
+        <item>Light</item>
+        <item>Medium</item>
+        <item>Ravenous</item>
+    </string-array>
+</resources>
